@@ -43,7 +43,6 @@ function createMap(data) {
             fillColor: color,
             radius: mag*20000
         }).bindPopup(`${data[i].properties.place}`));
-        console.log(depth);
     };
 
 
