@@ -76,22 +76,33 @@ function createMap(data) {
         position: "bottomright"
     });
       
+    
     // When the layer control is added, insert a div with the class of "legend".
-    legend.onAdd = function () {
-        // make the box a div
+    legend.onAdd = function() {
         let div = L.DomUtil.create("div", "legend");
+    
+        // grades and colors
+        let grades = [-10, 10, 30, 50, 70, 90];
+        let colors = [
+          "#69B34C",
+          "#ACB334",
+          "#FAB733",
+          "#FF8E15",
+          "#FF4E11",
+          "#FF0D0D"
+        ];
+    
+        // loop through and add color block and interval
+        for (let i = 0; i < grades.length; i++) {
+          div.innerHTML += "<i style='background: " + colors[i] + "'></i> "
+          + grades[i] + (grades[i + 1] ? "&ndash;" + grades[i + 1] + "<br>" : "+");
+        }
+
         return div;
-    };
+      };
 
     // Add the info legend to the map.
     legend.addTo(myMap);
 
-    updateLegend();
 
 }; 
-
-function updateLegend() {
-    document.querySelector(".legend").innerHTML = [
-        "<p>Colors: Color here </p>",
-    ].join("");
-};

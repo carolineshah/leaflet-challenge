@@ -11,12 +11,21 @@ html {
 
 .legend {
   padding: 10px;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 13px;
   line-height: 18px;
   color: #555;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
+.legend i {
+  float: left;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  opacity: 0.9;
+}
+
+
+
 
