@@ -9,6 +9,7 @@ d3.json(queryUrl).then(function (data) {
     createMap(data.features);
   });
 
+
 function createMap(data) {
 
     let markers = [];
@@ -19,7 +20,7 @@ function createMap(data) {
         let depth = data[i].geometry.coordinates[2];
         let mag = data[i].properties.mag;
 
-        // use depth to determien color of circle
+        // use depth to determine color of circle
         let color = "#FF0D0D";
         if (depth <= 10) {
             color = "#69B34C"
@@ -45,7 +46,7 @@ function createMap(data) {
         }).bindPopup(`${data[i].properties.place}`));
     };
 
-
+    // base layers
     let street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     });
@@ -58,7 +59,7 @@ function createMap(data) {
         earthquakes: markerLayer
     };
 
-
+    // create map
     let myMap = L.map("map", {
         center: [
             37.09, -95.71
@@ -66,7 +67,6 @@ function createMap(data) {
         zoom: 4,
         layers: [street, markerLayer]
     });
-
     L.control.layers(baseMaps, overlaysMaps, {
         collapsed: false
     }).addTo(myMap);
@@ -76,13 +76,12 @@ function createMap(data) {
         position: "bottomright"
     });
       
-    
     // When the layer control is added, insert a div with the class of "legend".
     legend.onAdd = function() {
         let div = L.DomUtil.create("div", "legend");
     
-        // grades and colors
-        let grades = [-10, 10, 30, 50, 70, 90];
+        // scale and colors
+        let scale = [-10, 10, 30, 50, 70, 90];
         let colors = [
           "#69B34C",
           "#ACB334",
@@ -95,7 +94,7 @@ function createMap(data) {
         // loop through and add color block and interval
         for (let i = 0; i < grades.length; i++) {
           div.innerHTML += "<i style='background: " + colors[i] + "'></i> "
-          + grades[i] + (grades[i + 1] ? "&ndash;" + grades[i + 1] + "<br>" : "+");
+          + scale[i] + (scale[i + 1] ? "&ndash;" + scale[i + 1] + "<br>" : "+");
         }
 
         return div;
@@ -103,6 +102,5 @@ function createMap(data) {
 
     // Add the info legend to the map.
     legend.addTo(myMap);
-
 
 }; 
